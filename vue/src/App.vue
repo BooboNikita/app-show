@@ -17,17 +17,16 @@
     <main class="history">
       <h3>历史版本</h3>
       <el-table :data="history" stripe style="width: 100%">
-        <el-table-column prop="fileName" label="文件名" min-width="260" />
+        <el-table-column label="文件名" min-width="260">
+          <template #default="{ row }">
+            <el-link type="primary" @click="download(row.fileName)">{{
+              row.fileName
+            }}</el-link>
+          </template>
+        </el-table-column>
         <el-table-column prop="version" label="版本号" width="120" />
         <el-table-column label="文件时间" width="180">
           <template #default="{ row }">{{ format(row.mtime) }}</template>
-        </el-table-column>
-        <el-table-column label="操作" width="100" align="center">
-          <template #default="{ row }">
-            <el-button link type="primary" @click="download(row.fileName)">
-              下载
-            </el-button>
-          </template>
         </el-table-column>
       </el-table>
     </main>
@@ -77,14 +76,19 @@ const history = computed(() => {
     console.log("rows", rows);
   });
   console.log("历史版本原始数据", arr);
-  return arr.sort((a, b) =>
-    b.version.localeCompare(a.version, undefined, { numeric: true })
-  );
+  return arr
+    .sort((a, b) =>
+      b.version.localeCompare(a.version, undefined, { numeric: true })
+    )
+    .slice(1);
 });
 
 /* ---------- 工具 ---------- */
 function download(fileName) {
-  window.open(`${apiBase}/apk/${encodeURIComponent(fileName)}`, "_blank");
+  window.open(
+    `${apiBase}/app/api/apk/${encodeURIComponent(fileName)}`,
+    "_blank"
+  );
 }
 const format = (t) => moment(t).format("YYYY-MM-DD HH:mm");
 </script>

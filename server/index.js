@@ -15,7 +15,7 @@ app.use(cors());
 
 /* 1. 静态托管 + 强制下载 */
 app.use(
-  "/apk",
+  "/app/api/apk",
   express.static(APK_DIR, {
     setHeaders(res, filePath) {
       res.set(
@@ -80,5 +80,5 @@ app.get("/app/api/apk", async (_req, res) => {
 app.listen(PORT, () => {
   console.log(`Server running:`);
   console.log(`  API     -> http://localhost:${PORT}/app/api/apk`);
-  console.log(`  Static  -> http://localhost:${PORT}/apk/<file>`);
+  console.log(`  Static  -> http://localhost:${PORT}/app/api/apk/<file>`);
 });
