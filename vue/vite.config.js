@@ -8,4 +8,5 @@ export default defineConfig({
     host: "0.0.0.0", // 可写具体 IP，如 '192.168.1.100'
     port: 5173,
   },
+  base: "/app-show/",
 });

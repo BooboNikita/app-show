@@ -2,9 +2,9 @@
   <div class="page">
     <!-- 1. 顶部最新版区域 -->
     <header class="latest-bar">
-      <img src="./assets/android.svg" alt="Android Logo" class="android-logo" />
+      <img src="./assets/logo.png" alt="Android Logo" class="android-logo" />
       <div class="info">
-        <h1 class="title">{{ latest.pkgName }}</h1>
+        <h1 class="title">监督监管平台</h1>
         <div class="version">最新版本：{{ latest.version }}</div>
         <div class="time">{{ format(latest.mtime) }}</div>
       </div>
@@ -39,7 +39,8 @@ import { ref, computed, onMounted } from "vue";
 import axios from "axios";
 import moment from "moment";
 
-const apiBase = "http://localhost:3001";
+const apiBase = import.meta.env.VITE_API_BASE || "";
+// console.log("API 基础路径：", apiBase);
 const apkMap = ref({}); // 原始分组数据
 const loading = ref(false);
 
@@ -47,7 +48,7 @@ const loading = ref(false);
 async function load() {
   loading.value = true;
   try {
-    const { data } = await axios.get(`${apiBase}/api/apk`);
+    const { data } = await axios.get(`${apiBase}/app/api/apk`);
     apkMap.value = data.data;
   } finally {
     loading.value = false;
@@ -116,6 +117,7 @@ const format = (t) => moment(t).format("YYYY-MM-DD HH:mm");
 .title {
   margin: 0;
   font-size: 24px;
+  color: #2563eb;
 }
 .version {
   font-size: 16px;

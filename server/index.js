@@ -67,7 +67,7 @@ async function scan() {
 }
 
 /* 4. 列表接口 */
-app.get("/api/apk", async (_req, res) => {
+app.get("/app/api/apk", async (_req, res) => {
   try {
     const data = await scan();
     res.json({ code: 0, data });
@@ -79,6 +79,6 @@ app.get("/api/apk", async (_req, res) => {
 /* 5. 启动 */
 app.listen(PORT, () => {
   console.log(`Server running:`);
-  console.log(`  API     -> http://localhost:${PORT}/api/apk`);
+  console.log(`  API     -> http://localhost:${PORT}/app/api/apk`);
   console.log(`  Static  -> http://localhost:${PORT}/apk/<file>`);
 });
